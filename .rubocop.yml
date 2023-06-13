@@ -178,6 +178,7 @@ Metrics/AbcSize:
   Exclude:
     - 'db/**/*'
     - 'app/controllers/web/users/*'
+    - 'lib/generators/**/*'
 
 Metrics/BlockLength:
   Exclude:

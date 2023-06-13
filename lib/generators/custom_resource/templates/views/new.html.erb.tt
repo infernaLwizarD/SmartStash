@@ -1,0 +1,13 @@
+<%%
+  @breadcrumbs = [
+    {
+      title: '<%= r_pluralize(r_capitalize(resource_name)) %>',
+      path: <%= plural_name %>_path
+    },
+    {
+      title: '<%= 'Добавить'.force_encoding('UTF-8') %> <%= resource_name.downcase %>'
+    },
+  ]
+%>
+
+<%%= render 'form', back_path: <%= plural_name %>_path %>

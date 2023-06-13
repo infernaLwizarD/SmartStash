@@ -1,0 +1,6 @@
+class <%= class_name %> < ApplicationRecord
+  include <%= class_name %>Ransack
+  include Discard::Model
+
+  validates :label, presence: true
+end
