@@ -1,0 +1,60 @@
+require 'rails_helper'
+
+RSpec.shared_examples 'edit_<%= class_name.downcase %>' do
+  let_it_be(:edited_<%= class_name.downcase %>) { create(:<%= class_name.downcase %>) }
+
+  it '<%= 'успешно редактирует'.force_encoding('UTF-8') %>' do
+    within('#<%= plural_name.downcase %>-table') do
+      expect(page).to have_content(edited_<%= class_name.downcase %>.label)
+      click_link(edited_<%= class_name.downcase %>.label)
+    end
+
+    click_on '<%= 'Редактировать'.force_encoding('UTF-8') %>'
+
+    new_label = Faker::Lorem.unique.word
+    fill_in '<%= 'Наименование'.force_encoding('UTF-8') %>', with: new_label
+
+    click_on '<%= 'Сохранить'.force_encoding('UTF-8') %>'
+
+    expect(page).to have_content '<%= resource_name %> <%= 'отредактирован'.force_encoding('UTF-8') %>'
+    expect(page).to have_content new_label
+  end
+
+  it '<%= 'получает сообщение об ошибке не заполнив обязательных полей'.force_encoding('UTF-8') %>' do
+    within('#<%= plural_name.downcase %>-table') do
+      expect(page).to have_content(edited_<%= class_name.downcase %>.label)
+      click_link(edited_<%= class_name.downcase %>.label)
+    end
+
+    click_on '<%= 'Редактировать'.force_encoding('UTF-8') %>'
+
+    fill_in '<%= 'Наименование'.force_encoding('UTF-8') %>', with: ''
+
+    click_on '<%= 'Сохранить'.force_encoding('UTF-8') %>'
+
+    expect(page).to have_content '<%= 'не может быть пустым'.force_encoding('UTF-8') %>'
+  end
+end
+
+RSpec.describe '<%= 'Редактирование'.force_encoding('UTF-8') %> <%= resource_name %>', js: true, type: :system do
+  before do
+    logged_as(user)
+    visit <%= plural_name.downcase %>_path
+
+    # within('.main-sidebar') do
+    #   click_link('<%= r_capitalize(resource_name) %> ')
+    # end
+  end
+
+  context '<%= 'Администратор'.force_encoding('UTF-8') %>' do
+    let(:user) { create(:user, :admin) }
+
+    include_examples 'edit_<%= class_name.downcase %>'
+  end
+
+  context '<%= 'Обычный пользователь'.force_encoding('UTF-8') %>' do
+    let(:user) { create(:user) }
+    
+    include_examples 'edit_<%= class_name.downcase %>'
+  end
+end

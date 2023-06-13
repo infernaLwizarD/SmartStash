@@ -1,0 +1,54 @@
+require 'rails_helper'
+
+RSpec.shared_examples 'delete_<%= class_name.downcase %>' do
+  let_it_be(:deleting_<%= class_name.downcase %>) { create(:<%= class_name.downcase %>) }
+  let_it_be(:deleted_<%= class_name.downcase %>) { create(:<%= class_name.downcase %>) }
+
+  it '<%= 'удаляет'.force_encoding('UTF-8') %> <%= resource_name %>' do
+    within('#<%= plural_name.downcase %>-table') do
+      expect(page).to have_content(deleting_<%= class_name.downcase %>.label)
+      click_link(deleting_<%= class_name.downcase %>.label)
+    end
+
+    accept_confirm do
+      click_on '<%= 'Удалить'.force_encoding('UTF-8') %>
+    end
+
+    expect(page).to have_content '<%= resource_name %> <%= 'удалён'.force_encoding('UTF-8') %>'
+  end
+
+  it '<%= 'восстанавливает'.force_encoding('UTF-8') %> <%= resource_name %>' do
+    within('#<%= plural_name.downcase %>-table') do
+      expect(page).to have_content(deleted_<%= class_name.downcase %>.label)
+      click_link(deleted_<%= class_name.downcase %>.label)
+    end
+
+    click_on '<%= 'Восстановить'.force_encoding('UTF-8') %>'
+
+    expect(page).to have_content '<%= resource_name %> <%= 'восстановлен'.force_encoding('UTF-8') %>'
+  end
+
+end
+
+RSpec.describe '<%= 'Удаление'.force_encoding('UTF-8') %> <%= resource_name.downcase %>', js: true, type: :system do
+  before do
+    logged_as(user)
+    visit <%= plural_name.downcase %>_path
+
+    # within('.main-sidebar') do
+    #   click_link('<%= r_capitalize(resource_name) %>')
+    # end
+  end
+
+  context '<%= 'Администратор'.force_encoding('UTF-8') %>' do
+    let(:user) { create(:user, :admin) }
+
+    include_examples 'delete_<%= class_name.downcase %>'
+  end
+
+  context '<%= 'Обычный пользователь'.force_encoding('UTF-8') %>' do
+    let(:user) { create(:user) }
+
+    include_examples 'delete_<%= class_name.downcase %>'
+  end
+end

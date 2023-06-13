@@ -1,0 +1,14 @@
+<%%
+  @breadcrumbs = [
+    {
+      title: '<%= r_pluralize(r_capitalize(resource_name)) %>',
+      path: <%= plural_name %>_path
+    },
+    {
+      title: @<%= class_name.underscore %>.label,
+      path: <%= class_name.underscore %>_path(@<%= class_name.underscore %>),
+    },
+  ]
+%>
+
+<%%= render 'form', back_path: <%= class_name.underscore %>_path(@<%= class_name.underscore %>) %>

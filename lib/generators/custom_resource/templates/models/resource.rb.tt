@@ -1,0 +1,8 @@
+class <%= class_name %> < ApplicationRecord
+  include <%= class_name %>Ransack
+  include Discard::Model
+
+  belongs_to :creator, class_name: 'User'
+
+  validates :label, presence: true
+end
