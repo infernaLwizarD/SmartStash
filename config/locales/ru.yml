@@ -266,3 +266,9 @@ ru:
       long: "%d %B %Y, %H:%M"
       short: "%d %b, %H:%M"
     pm: вечера
+  words:
+    user:
+      one: пользователь
+      few: пользователя
+      many: пользователей
+      other: пользователей
