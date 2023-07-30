@@ -1,0 +1,67 @@
+class Web::Collection::ItemsController < Web::ApplicationController
+  respond_to :html, :json
+  before_action :find_and_authorize_item, except: %i[new create index]
+
+  def index
+    authorize Collection::Item
+
+    @q = policy_scope(Collection::Item).ransack(params[:q])
+    @pagy, @items = pagy(@q.result)
+  end
+
+  def show
+    respond_with @item
+  end
+
+  def new
+    authorize Collection::Item
+
+    @item = Collection::Item.new
+    respond_with @item
+  end
+
+  def edit
+  end
+
+  def create
+    authorize Collection::Item
+
+    @item = Collection::Item.new(item_params)
+    @item.creator_id = current_user.id
+    flash[:notice] = 'Коллекция успешно создана' if @item.save
+    respond_with @item
+  end
+
+  def update
+    if @item.update(item_params)
+      flash[:notice] = 'Коллекция отредактирована' if @item.saved_changes?
+      redirect_to action: :show
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @item.discard
+    flash[:notice] = 'Коллекция удалена'
+    redirect_to collection_items_path
+  end
+
+  def restore
+    @item.undiscard!
+    flash[:notice] = 'Коллекция восстановлена'
+    respond_with @item
+  end
+
+  private
+
+  def find_and_authorize_item
+    @item = Collection::Item.find(params[:id])
+    authorize @item
+  end
+
+  def item_params
+    attributes = %i[label]
+    params.require(:collection_item).permit(attributes)
+  end
+end

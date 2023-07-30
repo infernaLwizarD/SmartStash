@@ -36,6 +36,41 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: collection_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.collection_items (
+    id bigint NOT NULL,
+    label character varying,
+    creator_id bigint NOT NULL,
+    parent_id integer,
+    "order" integer DEFAULT 0 NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    discarded_at timestamp without time zone
+);
+
+
+--
+-- Name: collection_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.collection_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: collection_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.collection_items_id_seq OWNED BY public.collection_items.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -95,6 +130,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: collection_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_items ALTER COLUMN id SET DEFAULT nextval('public.collection_items_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -107,6 +149,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: collection_items collection_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_items
+    ADD CONSTRAINT collection_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -123,6 +173,20 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_collection_items_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_items_on_creator_id ON public.collection_items USING btree (creator_id);
+
+
+--
+-- Name: index_collection_items_on_discarded_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_items_on_discarded_at ON public.collection_items USING btree (discarded_at);
 
 
 --
@@ -168,6 +232,14 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 
 
 --
+-- Name: collection_items fk_rails_ea0148d071; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_items
+    ADD CONSTRAINT fk_rails_ea0148d071 FOREIGN KEY (creator_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -177,6 +249,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230207182811'),
 ('20230209091919'),
 ('20230215182412'),
-('20230313181755');
+('20230313181755'),
+('20230608113327'),
+('20230713185945');
 
 

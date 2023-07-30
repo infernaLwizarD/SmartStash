@@ -1,0 +1,14 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Коллекция',
+      path: collection_items_path
+    },
+    {
+      title: @item.label,
+      path: collection_item_path(@item),
+    },
+  ]
+%>
+
+<%= render 'form', back_path: collection_item_path(@item) %>

@@ -1,0 +1,43 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Коллекции',
+      path: collection_items_path
+    },
+    {
+      title: @item.label,
+      path: collection_item_path(@item),
+    },
+  ]
+%>
+
+<div class="card card-primary">
+  <div class="card-header">
+    <h3 class="card-title m-0">Коллекция</h3>
+    <div class="card-tools">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="form-group">
+      <label>Наименование</label>
+        <div><%= @item.label %></div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <% if policy(@item).update? %>
+      <%= draw_edit_button(path: edit_collection_item_path(@item)) %>
+    <% end %>
+
+    <%= draw_back_button(path: collection_items_path) %>
+
+    <% if policy(@item).restore? %>
+      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_item_path(@item), method: :post, class: 'btn btn-warning float-right') %>
+    <% end %>
+    <% if policy(@item).destroy? %>
+      <%= draw_delete_button(path: @item) %>
+    <% end %>
+  </div>
+</div>

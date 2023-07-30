@@ -1,0 +1,13 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Коллекции',
+      path: collection_items_path
+    },
+    {
+      title: 'Добавить коллекцию'
+    },
+  ]
+%>
+
+<%= render 'form', back_path: collection_items_path %>

@@ -26,6 +26,12 @@ Rails.application.routes.draw do
       end
     end
     #----#
+
+    namespace :collection do
+      resources :items do
+        post 'restore', on: :member
+      end
+    end
   end
 
   mount Sidekiq::Web => '/sidekiq'
