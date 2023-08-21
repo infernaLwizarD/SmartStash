@@ -1,10 +1,9 @@
 class Collection::Item < ApplicationRecord
+  has_closure_tree order: 'sort_order', numeric_order: true
   include Collection::ItemRansack
   include Discard::Model
 
   belongs_to :creator, class_name: 'User'
-  belongs_to :parent, class_name: 'Collection::Item', optional: true
-  has_many :children, class_name: 'Collection::Item', foreign_key: 'parent_id', inverse_of: :parent
 
   validates :label, presence: true
 

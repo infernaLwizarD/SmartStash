@@ -15,11 +15,7 @@ class Collection::ItemPolicy < ApplicationPolicy
 
   def create?
     if record.instance_of?(Collection::Item)
-      if record.top_level?
-        record.kept?
-      else
-        record.kept? && record.parent.kept?
-      end
+      record.kept? && record.ancestors.collect(&:discarded?).uniq.exclude?(true)
     else
       true
     end

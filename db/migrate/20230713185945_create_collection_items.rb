@@ -4,7 +4,7 @@ class CreateCollectionItems < ActiveRecord::Migration[6.1]
       t.string :label
       t.references :creator, null: false, foreign_key: { to_table: :users }
       t.integer :parent_id
-      t.integer :order, null: false, default: 0
+      t.integer :sort_order, null: false, default: 0
 
       t.timestamps
       t.datetime :discarded_at, index: true

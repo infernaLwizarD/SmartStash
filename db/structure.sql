@@ -36,6 +36,17 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: collection_item_hierarchies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.collection_item_hierarchies (
+    ancestor_id integer NOT NULL,
+    descendant_id integer NOT NULL,
+    generations integer NOT NULL
+);
+
+
+--
 -- Name: collection_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -44,7 +55,7 @@ CREATE TABLE public.collection_items (
     label character varying,
     creator_id bigint NOT NULL,
     parent_id integer,
-    "order" integer DEFAULT 0 NOT NULL,
+    sort_order integer DEFAULT 0 NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     discarded_at timestamp without time zone
@@ -232,6 +243,20 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 
 
 --
+-- Name: item_anc_desc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX item_anc_desc_idx ON public.collection_item_hierarchies USING btree (ancestor_id, descendant_id, generations);
+
+
+--
+-- Name: item_desc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX item_desc_idx ON public.collection_item_hierarchies USING btree (descendant_id);
+
+
+--
 -- Name: collection_items fk_rails_ea0148d071; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -251,6 +276,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230215182412'),
 ('20230313181755'),
 ('20230608113327'),
-('20230713185945');
+('20230713185945'),
+('20230821202540');
 
 
