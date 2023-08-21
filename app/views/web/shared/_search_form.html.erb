@@ -1,4 +1,5 @@
-<%= search_form_for q, class: 'display-flex, ml-2 mr-2' do |f| %>
+<% url = url || nil %>
+<%= search_form_for q, class: 'display-flex, ml-2 mr-2', url: url do |f| %>
   <div class="row">
     <div class="col p-1">
       <%= f.search_field :search_cont, value: params.dig(:q, :search_cont), placeholder: 'Поиск', class: 'search-field float-left form-control form-control-sm' %>
