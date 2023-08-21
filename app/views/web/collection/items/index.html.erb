@@ -44,9 +44,10 @@
           </thead>
           <tbody>
           <% @items.each do |item| %>
+            <% td_class = item.discarded? ? ' class=bg-danger' : '' %>
             <tr>
-              <td><%= link_to item.id, item %></td>
-              <td><%= link_to item.label, item %></td>
+              <td<%= td_class %>><%= link_to item.id, item %></td>
+              <td<%= td_class %>><%= link_to item.label, item %></td>
             </tr>
           <% end %>
           </tbody>

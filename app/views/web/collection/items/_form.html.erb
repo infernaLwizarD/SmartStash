@@ -9,6 +9,9 @@
 
     <div class="card-body">
       <%= render 'web/shared/error_messages', resource: @item %>
+      <% if @item.new_record? %>
+        <%= form.hidden_field :parent_id, value: params[:parent_id] %>
+      <% end %>
       <div class="form-group">
         <%= form.label :label, 'Наименование' %>
         <%= form.text_field :label, class: 'form-control form-control-sm' %>

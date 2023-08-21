@@ -14,7 +14,15 @@ class Collection::ItemPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    if record.instance_of?(Collection::Item)
+      if record.top_level?
+        record.kept?
+      else
+        record.kept? && record.parent.kept?
+      end
+    else
+      true
+    end
   end
 
   def update?

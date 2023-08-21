@@ -5,11 +5,16 @@ class Web::Collection::ItemsController < Web::ApplicationController
   def index
     authorize Collection::Item
 
+    params[:q] = (params[:q] || {}).merge({ parent_id_null: true })
     @q = policy_scope(Collection::Item).ransack(params[:q])
     @pagy, @items = pagy(@q.result)
   end
 
   def show
+    params[:q] = (params[:q] || {}).merge({ parent_id_eq: @item.id })
+    @q = policy_scope(Collection::Item).ransack(params[:q])
+    @pagy, @children = pagy(@q.result)
+
     respond_with @item
   end
 
@@ -61,7 +66,7 @@ class Web::Collection::ItemsController < Web::ApplicationController
   end
 
   def item_params
-    attributes = %i[label]
+    attributes = %i[label parent_id]
     params.require(:collection_item).permit(attributes)
   end
 end

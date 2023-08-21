@@ -20,9 +20,16 @@
   </div>
 
   <div class="card-body">
+    <% if !@item.top_level? %>
+      <div class="form-group">
+        <label>Родительская коллекция</label>
+        <div><%= link_to(@item.parent.label, collection_item_path(@item.parent)) %></div>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <label>Наименование</label>
-        <div><%= @item.label %></div>
+      <div><%= @item.label %></div>
     </div>
   </div>
 
@@ -31,7 +38,7 @@
       <%= draw_edit_button(path: edit_collection_item_path(@item)) %>
     <% end %>
 
-    <%= draw_back_button(path: collection_items_path) %>
+    <%= draw_back_button(path: @item.top_level? ? collection_items_path : collection_item_path(@item.parent)) %>
 
     <% if policy(@item).restore? %>
       <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_item_path(@item), method: :post, class: 'btn btn-warning float-right') %>
@@ -41,3 +48,50 @@
     <% end %>
   </div>
 </div>
+
+
+<div class="card">
+  <div class="card-header accent-purple">
+    <div class="row">
+      <div class="col col-md-11">
+        <div class="row align-items-center display-flex">
+          <div class="m-1">
+            <%== pagy_bootstrap_nav(@pagy) %>
+          </div>
+          <%= render 'web/shared/search_form', q: @q, url: collection_item_path(@item) %>
+          <div class="m-1">
+            <% if policy(@item).create? %>
+              <div><%= draw_new_button(path: new_collection_item_path(parent_id: @item.id), button: true) %></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-1">
+        <div class="card-tools float-right">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body p-0" style="max-height:700px;overflow:auto;">
+    <table id="items-table" class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th style="width:10px;"><%= sort_link(@q, :id, 'ID') %></th>
+        <th><%= sort_link(@q, :label, 'Наименование') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @children.each do |item| %>
+        <% td_class = item.discarded? ? ' class=bg-danger' : '' %>
+        <tr>
+          <td<%= td_class %>><%= link_to item.id, item %></td>
+          <td<%= td_class %>><%= link_to item.label, item %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
