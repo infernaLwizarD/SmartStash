@@ -7,12 +7,14 @@ class Web::Collection::ItemsController < Web::ApplicationController
 
     params[:q] = (params[:q] || {}).merge({ parent_id_null: true })
     @q = policy_scope(Collection::Item).ransack(params[:q])
+    @q.sorts = 'sort_order asc' if @q.sorts.empty?
     @pagy, @items = pagy(@q.result)
   end
 
   def show
     params[:q] = (params[:q] || {}).merge({ parent_id_eq: @item.id })
     @q = policy_scope(Collection::Item).ransack(params[:q])
+    @q.sorts = 'sort_order asc' if @q.sorts.empty?
     @pagy, @children = pagy(@q.result)
 
     respond_with @item
@@ -70,7 +72,7 @@ class Web::Collection::ItemsController < Web::ApplicationController
   end
 
   def item_params
-    attributes = %i[label parent_id]
+    attributes = %i[label parent_id sort_order]
     params.require(:collection_item).permit(attributes)
   end
 end

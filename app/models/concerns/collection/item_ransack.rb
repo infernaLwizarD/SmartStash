@@ -7,7 +7,7 @@ module Collection::ItemRansack
 
   class_methods do
     def ransackable_attributes(_auth_object = nil)
-      %w[search label parent_id]
+      %w[search label parent_id id sort_order]
     end
 
     def ransackable_associations(_auth_object = nil)

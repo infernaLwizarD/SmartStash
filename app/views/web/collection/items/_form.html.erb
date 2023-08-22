@@ -1,4 +1,5 @@
-<%= form_with(model: @item) do |form| %>
+<% url = url || nil %>
+<%= form_with(model: @item, url: url) do |form| %>
   <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title m-0">Коллекция</h3>
@@ -15,6 +16,10 @@
       <div class="form-group">
         <%= form.label :label, 'Наименование' %>
         <%= form.text_field :label, class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group">
+        <%= form.label :sort_order, '№ (Порядок сортировки)' %>
+        <%= form.number_field :sort_order, class: 'form-control form-control-sm', value: @item.new_record? ? Collection::Item.max_sort_order_by_level(params[:parent_id]) + 1 : @item.sort_order %>
       </div>
     </div>
 
