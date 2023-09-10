@@ -39,7 +39,7 @@
           <thead>
           <tr>
             <th style="width:10px;"><%%= sort_link(@q, :id, 'ID') %></th>
-            <th><%%= sort_link(@q, :label, '<%= 'Наименование'.force_encoding('UTF-8') %>) %>'</th>
+            <th><%%= sort_link(@q, :label, '<%= 'Наименование'.force_encoding('UTF-8') %>') %></th>
           </tr>
           </thead>
           <tbody>
