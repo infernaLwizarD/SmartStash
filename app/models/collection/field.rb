@@ -3,7 +3,7 @@ class Collection::Field < ApplicationRecord
   include Collection::FieldRansack
   include Collection::FieldEnum
 
-  belongs_to :item, class_name: 'Collection::Item', foreign_key: :collection_item_id
+  belongs_to :item, class_name: 'Collection::Item', foreign_key: :collection_item_id, inverse_of: :fields
   belongs_to :creator, class_name: 'User'
 
   scope :by_discarded, lambda { |v|

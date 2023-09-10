@@ -35,9 +35,9 @@ class Collection::FieldPolicy < ApplicationPolicy
 
   def restore?
     record.discarded? && if user.admin?
-                      true
-                    else
-                      record.creator_id == user.id
-                    end
+                           true
+                         else
+                           record.creator_id == user.id
+                         end
   end
 end

@@ -9,7 +9,7 @@ module Collection::FieldEnum
       date: 'date',
       checkbox: 'checkbox',
       radio: 'radio',
-      file: 'file',
+      file: 'file'
     }, _suffix: true
   end
 
@@ -20,7 +20,7 @@ module Collection::FieldEnum
     'date' => 'Дата',
     'checkbox' => 'Чекбокс',
     'radio' => 'Радиокнопка',
-    'file' => 'Файл',
+    'file' => 'Файл'
   }.freeze
 
   class_methods do

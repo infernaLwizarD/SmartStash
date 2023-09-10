@@ -245,3 +245,6 @@ Rails/I18nLocaleTexts:
 
 Rails/OutputSafety:
   Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
