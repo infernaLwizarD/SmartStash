@@ -10,6 +10,21 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: item_field_type; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE public.item_field_type AS ENUM (
+    'text',
+    'textarea',
+    'select',
+    'date',
+    'checkbox',
+    'radio',
+    'file'
+);
+
+
+--
 -- Name: user_role; Type: TYPE; Schema: public; Owner: -
 --
 
@@ -33,6 +48,42 @@ CREATE TABLE public.ar_internal_metadata (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
+
+
+--
+-- Name: collection_fields; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.collection_fields (
+    id bigint NOT NULL,
+    collection_item_id bigint NOT NULL,
+    creator_id bigint NOT NULL,
+    sort_order integer DEFAULT 0 NOT NULL,
+    field_attributes text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    discarded_at timestamp without time zone,
+    field_type public.item_field_type
+);
+
+
+--
+-- Name: collection_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.collection_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: collection_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.collection_fields_id_seq OWNED BY public.collection_fields.id;
 
 
 --
@@ -141,6 +192,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: collection_fields id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_fields ALTER COLUMN id SET DEFAULT nextval('public.collection_fields_id_seq'::regclass);
+
+
+--
 -- Name: collection_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -160,6 +218,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: collection_fields collection_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_fields
+    ADD CONSTRAINT collection_fields_pkey PRIMARY KEY (id);
 
 
 --
@@ -184,6 +250,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_collection_fields_on_collection_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_fields_on_collection_item_id ON public.collection_fields USING btree (collection_item_id);
+
+
+--
+-- Name: index_collection_fields_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_fields_on_creator_id ON public.collection_fields USING btree (creator_id);
+
+
+--
+-- Name: index_collection_fields_on_discarded_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_fields_on_discarded_at ON public.collection_fields USING btree (discarded_at);
 
 
 --
@@ -257,6 +344,22 @@ CREATE INDEX item_desc_idx ON public.collection_item_hierarchies USING btree (de
 
 
 --
+-- Name: collection_fields fk_rails_2df3194bfe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_fields
+    ADD CONSTRAINT fk_rails_2df3194bfe FOREIGN KEY (collection_item_id) REFERENCES public.collection_items(id);
+
+
+--
+-- Name: collection_fields fk_rails_981f185c9d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_fields
+    ADD CONSTRAINT fk_rails_981f185c9d FOREIGN KEY (creator_id) REFERENCES public.users(id);
+
+
+--
 -- Name: collection_items fk_rails_ea0148d071; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -277,6 +380,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230313181755'),
 ('20230608113327'),
 ('20230713185945'),
-('20230821202540');
+('20230821202540'),
+('20230823203909'),
+('20230823211123');
 
 

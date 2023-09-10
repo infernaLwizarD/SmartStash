@@ -1,0 +1,19 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Коллекции',
+      path: collection_items_path
+    },
+    {
+      title: @field.item&.label,
+      path: collection_item_path(params[:item_id])
+    },
+    {
+      title: 'Добавить поле'
+    },
+  ]
+%>
+
+<%= render 'form',
+           url: collection_item_fields_path(params[:item_id]),
+           back_path: collection_item_path(params[:item_id]) %>

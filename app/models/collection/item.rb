@@ -3,6 +3,7 @@ class Collection::Item < ApplicationRecord
   include Collection::ItemRansack
   include Discard::Model
 
+  has_many :fields, class_name: 'Collection::Field', foreign_key: :collection_item_id
   belongs_to :creator, class_name: 'User'
 
   validates :label, presence: true
