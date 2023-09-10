@@ -1,4 +1,4 @@
-module LteHelper
+module Web::LteHelper
   def lte_button_to(options)
     options[:text] ||= ''
     options[:path] ||= '#'
