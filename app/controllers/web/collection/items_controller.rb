@@ -15,7 +15,11 @@ class Web::Collection::ItemsController < Web::ApplicationController
     params[:q] = (params[:q] || {}).merge({ parent_id_eq: @item.id })
     @q = policy_scope(Collection::Item).ransack(params[:q])
     @q.sorts = 'sort_order asc' if @q.sorts.empty?
-    @pagy, @children = pagy(@q.result)
+    @pagy_q, @children = pagy(@q.result, page_param: :page_q)
+
+    @f = @item.fields.ransack(params[:f], search_key: :f)
+    @f.sorts = 'sort_order asc' if @f.sorts.empty?
+    @pagy_f, @fields = pagy(@f.result, page_param: :page_f)
 
     respond_with @item
   end

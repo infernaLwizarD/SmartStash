@@ -1,3 +1,7 @@
+<% content_for :body_scripts do %>
+  <%= javascript_include_tag 'resources/collection/item/item' %>
+<% end %>
+
 <%
   @breadcrumbs = [
     {
@@ -55,15 +59,64 @@
 </div>
 
 
-<div class="card">
-  <div class="card-header accent-purple">
+<div class="card card-primary-2">
+  <div class="card-header">
+    <div class="row">
+      <div class="col col-md-11">
+        <div class="row align-items-center display-flex">
+          <div class="m-1"><h3 class="card-title">Поля</h3></div>
+          <div class="m-1">
+            <%== pagy_bootstrap_nav_sm(@pagy_f) %>
+          </div>
+          <%= render('web/shared/search_form', q: @f, url: collection_item_path(@item), search_key: :f, show_search_field: false, onchange_action: '') %>
+          <div class="m-1">
+            <% if policy(Collection::Field).create? %>
+              <div><%= draw_new_button(path: new_collection_item_field_path(@item), button: true) %></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col col-md-1">
+        <div class="card-tools float-right">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body p-0" style="max-height:400px;overflow:auto;">
+    <table id="items-table" class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th style="width:10px;"><%= sort_link(@f, :sort_order, '№') %></th>
+        <th style="width:10px;"><%= sort_link(@f, :id, 'ID') %></th>
+        <th><%= sort_link(@f, :field_type, 'Тип') %></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @fields.each do |field| %>
+        <% td_class = field.discarded? ? ' class=bg-danger' : '' %>
+        <tr>
+          <td<%= td_class %>><%= link_to field.sort_order, collection_item_field_path(@item, field) %></td>
+          <td<%= td_class %>><%= link_to field.id, collection_item_field_path(@item, field) %></td>
+          <td<%= td_class %>><%= link_to field.field_type, collection_item_field_path(@item, field) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="card card-primary-2">
+  <div class="card-header">
     <div class="row">
       <div class="col col-md-11">
         <div class="row align-items-center display-flex">
           <div class="m-1">
-            <%== pagy_bootstrap_nav(@pagy) %>
+            <%== pagy_bootstrap_nav_sm(@pagy_q) %>
           </div>
-          <%= render 'web/shared/search_form', q: @q, url: collection_item_path(@item) %>
+          <%= render 'web/shared/search_form', q: @q, url: collection_item_path(@item), search_key: :q, onchange_action: '' %>
           <div class="m-1">
             <% if policy(@item).create? %>
               <div><%= draw_new_button(path: new_collection_item_path(parent_id: @item.id), button: true) %></div>
@@ -79,7 +132,7 @@
     </div>
   </div>
 
-  <div class="card-body p-0" style="max-height:700px;overflow:auto;">
+  <div class="card-body p-0" style="max-height:400px;overflow:auto;">
     <table id="items-table" class="table table-striped table-bordered">
       <thead>
       <tr>
@@ -101,4 +154,3 @@
     </table>
   </div>
 </div>
-
