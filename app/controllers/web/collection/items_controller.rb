@@ -54,7 +54,7 @@ class Web::Collection::ItemsController < Web::ApplicationController
 
   def destroy
     if @item.discard
-      @item.children.discard_all
+      @item.descendants.discard_all
       flash[:notice] = 'Коллекция удалена'
     end
     redirect_to collection_items_path
@@ -62,7 +62,7 @@ class Web::Collection::ItemsController < Web::ApplicationController
 
   def restore
     if @item.undiscard
-      @item.children.undiscard_all
+      @item.descendants.undiscard_all
       flash[:notice] = 'Коллекция восстановлена'
     end
     respond_with @item
