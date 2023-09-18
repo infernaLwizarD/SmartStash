@@ -11,7 +11,7 @@ RSpec.shared_examples 'delete_<%= class_name.downcase %>' do
     end
 
     accept_confirm do
-      click_on '<%= 'Удалить'.force_encoding('UTF-8') %>
+      click_on '<%= 'Удалить'.force_encoding('UTF-8') %>'
     end
 
     expect(page).to have_content '<%= resource_name %> <%= 'удалён'.force_encoding('UTF-8') %>'
