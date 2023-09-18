@@ -13,7 +13,28 @@
 .table th, .table td {
   padding: 0.4rem;
 }
+.checkbox-field {
+  max-width: 1rem;
+}
 
+// form-card //
+.form-field {
+  border-top: 1px solid #dee2e6;
+  padding: 0.75rem;
+}
+.form-card > .form-field:first-child {
+  border-top: 0;
+  padding-top: 0 !important;
+}
+.form-card > .form-field:last-child {
+  padding-bottom: 0 !important;
+}
+.form-card > .form-field input[type=number],
+.form-card > .form-field textarea,
+.form-card > .form-field select {
+  margin-bottom: 0.25rem;
+}
+//----//
 
 // custom bg colors //
 .card-primary-2:not(.card-outline) > .card-header {
