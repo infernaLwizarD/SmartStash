@@ -7,7 +7,7 @@ class AddFieldTypeToCollectionFields < ActiveRecord::Migration[6.1]
   end
 
   def down
-    remove_column :collection_fields, :role
+    remove_column :collection_fields, :field_type
     execute <<~SQL.squish
       DROP TYPE item_field_type;
     SQL
