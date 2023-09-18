@@ -29,6 +29,20 @@ module Web::LteHelper
     ).html_safe
   end
 
+  def checkbox_val(object, options = {})
+    if object.present?
+      if options[:yn_format].present?
+        'Да'
+      else
+        '<i class="fas fa-check"></i>'
+      end
+    elsif options[:yn_format].present?
+      'Нет'
+    else
+      '<i class="fas fa-times"></i>'
+    end.html_safe
+  end
+
   ###--Кнопки--###
   def draw_edit_button(options)
     disabled = options[:disabled].present? ? ' disabled' : ''
