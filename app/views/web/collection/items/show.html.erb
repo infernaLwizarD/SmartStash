@@ -89,7 +89,8 @@
       <thead>
       <tr>
         <th style="width:10px;"><%= sort_link(@f, :sort_order, '№') %></th>
-        <th style="width:10px;"><%= sort_link(@f, :id, 'ID') %></th>
+        <th style="width:15px;"><%= sort_link(@f, :id, 'ID') %></th>
+        <th><%= sort_link(@f, :id, 'Наименование') %></th>
         <th><%= sort_link(@f, :field_type, 'Тип') %></th>
       </tr>
       </thead>
@@ -99,7 +100,8 @@
         <tr>
           <td<%= td_class %>><%= link_to field.sort_order, collection_item_field_path(@item, field) %></td>
           <td<%= td_class %>><%= link_to field.id, collection_item_field_path(@item, field) %></td>
-          <td<%= td_class %>><%= link_to field.field_type, collection_item_field_path(@item, field) %></td>
+          <td<%= td_class %>><%= link_to field.label.to_s, collection_item_field_path(@item, field) %></td>
+          <td<%= td_class %>><%= link_to field.field_type_label, collection_item_field_path(@item, field) %></td>
         </tr>
       <% end %>
       </tbody>

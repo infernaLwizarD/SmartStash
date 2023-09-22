@@ -62,7 +62,8 @@ class Web::Collection::FieldsController < Web::ApplicationController
   end
 
   def field_params
-    attributes = %i[sort_order field_type]
+    attributes = %i[label sort_order field_type field_values show_tooltip tooltip is_numeric no_format precision
+                    min_value max_value step default_value]
     params.require(:collection_field).permit(attributes)
   end
 end

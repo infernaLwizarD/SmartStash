@@ -43,6 +43,11 @@ module Web::LteHelper
     end.html_safe
   end
 
+  def serialized_array(array, options = {})
+    options[:prefix] ||= ''
+    array&.collect { |i| "#{options[:prefix]}#{i}" }&.join("\n")
+  end
+
   ###--Кнопки--###
   def draw_edit_button(options)
     disabled = options[:disabled].present? ? ' disabled' : ''

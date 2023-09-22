@@ -8,17 +8,73 @@
       </div>
     </div>
 
-    <div class="card-body">
+    <div class="card-body form-card">
       <%= render 'web/shared/error_messages', resource: @field %>
-      <div class="form-group">
-        <%= form.label :field_type, 'Тип поля' %>
-        <%= form.select :field_type, Collection::Field.field_type_collection,
-                        { include_blank: '[Выберите тип поля]' }, class: 'form-control form-control-sm' %>
+
+      <div class="form-field">
+        <%= form.label :label, 'Наименование' %>
+        <%= form.text_area :label, rows: 1, class: 'form-control form-control-sm w-500 mw-100 rh' %>
       </div>
 
-      <div class="form-group">
+      <div class="form-field">
         <%= form.label :sort_order, '№ (Порядок сортировки)' %>
-        <%= form.number_field :sort_order, class: 'form-control form-control-sm', value: @field.new_record? ? Collection::Field.max_sort_order_by_item(params[:item_id]) + 1 : @field.sort_order %>
+        <%= form.number_field :sort_order, class: 'form-control form-control-sm mw-100px', value: @field.new_record? ? Collection::Field.max_sort_order_by_item(params[:item_id]) + 1 : @field.sort_order %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :field_type, 'Тип поля' %>
+        <%= form.select :field_type, Collection::Field.field_type_collection,
+                        { include_blank: '[Выберите тип поля]' }, class: 'form-control form-control-sm mw-500' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :field_values, 'Список значений' %>
+        <%= form.text_area :field_values, value: serialized_array(@field.field_values), class: 'line-break form-control form-control-sm w-500 mw-100' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.check_box :show_tooltip, class: 'checkbox-field' %>
+        <%= form.label :show_tooltip, 'Показывать подсказку', class: 'mb-0' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :tooltip, 'Подсказка' %>
+        <%= form.text_area :tooltip, rows: 1, class: 'form-control form-control-sm w-500 mw-100 rh' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.check_box :is_numeric, class: 'checkbox-field' %>
+        <%= form.label :is_numeric, 'Числовое', class: 'mb-0' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.check_box :no_format, class: 'checkbox-field' %>
+        <%= form.label :no_format, 'Не форматировать', class: 'mb-0' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :precision, 'Количество знаков после запятой' %>
+        <%= form.number_field :precision, class: 'form-control form-control-sm mw-100px' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :min_value, 'Минимальное значение' %>
+        <%= form.number_field :min_value, class: 'form-control form-control-sm mw-100px' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :max_value, 'Максимальное значение' %>
+        <%= form.number_field :max_value, class: 'form-control form-control-sm mw-100px' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :step, 'Шаг' %>
+        <%= form.number_field :step, class: 'form-control form-control-sm mw-100px' %>
+      </div>
+
+      <div class="form-field">
+        <%= form.label :default_value, 'Значение по-умолчанию' %>
+        <%= form.text_area :default_value, rows: 1, class: 'form-control form-control-sm w-500 mw-100 rh' %>
       </div>
     </div>
 

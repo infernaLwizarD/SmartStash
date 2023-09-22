@@ -59,11 +59,22 @@ CREATE TABLE public.collection_fields (
     collection_item_id bigint NOT NULL,
     creator_id bigint NOT NULL,
     sort_order integer DEFAULT 0 NOT NULL,
-    field_attributes text,
+    field_values text DEFAULT '--- []
+'::text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     discarded_at timestamp without time zone,
-    field_type public.item_field_type
+    field_type public.item_field_type,
+    label character varying,
+    show_tooltip boolean DEFAULT false,
+    tooltip character varying,
+    is_numeric boolean DEFAULT false,
+    no_format boolean DEFAULT false,
+    "precision" integer,
+    min_value integer,
+    max_value integer,
+    step integer,
+    default_value character varying
 );
 
 
@@ -382,6 +393,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230713185945'),
 ('20230821202540'),
 ('20230823203909'),
-('20230823211123');
+('20230823211123'),
+('2023091311514255');
 
 

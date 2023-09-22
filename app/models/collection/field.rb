@@ -6,6 +6,13 @@ class Collection::Field < ApplicationRecord
   belongs_to :item, class_name: 'Collection::Item', foreign_key: :collection_item_id, inverse_of: :fields
   belongs_to :creator, class_name: 'User'
 
+  serialize :field_values, Array
+
+  def field_values=(value)
+    value = value.split(/[\r\n]+/).compact if value.is_a?(String)
+    super(value)
+  end
+
   scope :by_discarded, lambda { |v|
     case v
     when 'active'

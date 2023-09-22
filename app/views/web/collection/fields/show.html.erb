@@ -23,14 +23,58 @@
     </div>
   </div>
 
-  <div class="card-body">
-    <div class="form-group">
+  <div class="card-body form-card">
+    <div class="form-field">
+      <label>Наименование</label>
+      <div><%= @field.label %></div>
+    </div>
+    <div class="form-field">
+      <label>№ (Порядок сортировки)</label>
+      <div><%= @field.sort_order %></div>
+    </div>
+    <div class="form-field">
       <label>Тип поля</label>
       <div><%= @field.field_type_label %></div>
     </div>
-    <div class="form-group">
-      <label>№ (Порядок сортировки)</label>
-        <div><%= @field.sort_order %></div>
+    <div class="form-field">
+      <label>Список значений</label>
+      <div class="line-break"><%= serialized_array(@field.field_values, prefix: '- ') %></div>
+    </div>
+    <div class="form-field">
+      <label>Показывать подсказку</label>
+      <div><%= checkbox_val(@field.show_tooltip) %></div>
+    </div>
+    <div class="form-field">
+      <label>Подсказка</label>
+      <div><%= @field.tooltip %></div>
+    </div>
+    <div class="form-field">
+      <label>Числовое</label>
+      <div><%= checkbox_val(@field.is_numeric) %></div>
+    </div>
+    <div class="form-field">
+      <label>Не форматировать</label>
+      <div><%= checkbox_val(@field.no_format) %></div>
+    </div>
+    <div class="form-field">
+      <label>Количество знаков после запятой</label>
+      <div><%= @field.precision %></div>
+    </div>
+    <div class="form-field">
+      <label>Минимальное значение</label>
+      <div><%= @field.min_value %></div>
+    </div>
+    <div class="form-field">
+      <label>Максимальное значение</label>
+      <div><%= @field.max_value %></div>
+    </div>
+    <div class="form-field">
+      <label>Шаг</label>
+      <div><%= @field.step %></div>
+    </div>
+    <div class="form-field">
+      <label>Значение по-умолчанию</label>
+      <div><%= @field.default_value %></div>
     </div>
   </div>
 
