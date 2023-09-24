@@ -1,3 +1,7 @@
+<% content_for :body_scripts do %>
+  <%= javascript_include_tag 'resources/collection/field/field' %>
+<% end %>
+
 <%
   @breadcrumbs = [
     {
@@ -5,7 +9,7 @@
       path: collection_items_path
     },
     {
-      title: @field.item.label,
+      title: @field.item&.label,
       path: collection_item_path(@field.item)
     },
     {

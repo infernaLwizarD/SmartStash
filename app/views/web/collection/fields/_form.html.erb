@@ -29,7 +29,7 @@
 
       <div class="form-field">
         <%= form.label :field_values, 'Список значений' %>
-        <%= form.text_area :field_values, value: serialized_array(@field.field_values), class: 'line-break form-control form-control-sm w-500 mw-100' %>
+        <%= form.text_area :field_values, rows: @field.field_values.size, value: serialized_array(@field.field_values), class: 'line-break form-control form-control-sm w-500 mw-100' %>
       </div>
 
       <div class="form-field">

@@ -36,42 +36,50 @@
       <label>Тип поля</label>
       <div><%= @field.field_type_label %></div>
     </div>
-    <div class="form-field">
-      <label>Список значений</label>
-      <div class="line-break"><%= serialized_array(@field.field_values, prefix: '- ') %></div>
-    </div>
+    <% if %w[select checkbox radio].include?(@field.field_type) %>
+      <div class="form-field">
+        <label>Список значений</label>
+        <div class="line-break"><%= serialized_array(@field.field_values, prefix: '- ') %></div>
+      </div>
+    <% end %>
     <div class="form-field">
       <label>Показывать подсказку</label>
       <div><%= checkbox_val(@field.show_tooltip) %></div>
     </div>
-    <div class="form-field">
-      <label>Подсказка</label>
-      <div><%= @field.tooltip %></div>
-    </div>
-    <div class="form-field">
-      <label>Числовое</label>
-      <div><%= checkbox_val(@field.is_numeric) %></div>
-    </div>
-    <div class="form-field">
-      <label>Не форматировать</label>
-      <div><%= checkbox_val(@field.no_format) %></div>
-    </div>
-    <div class="form-field">
-      <label>Количество знаков после запятой</label>
-      <div><%= @field.precision %></div>
-    </div>
-    <div class="form-field">
-      <label>Минимальное значение</label>
-      <div><%= @field.min_value %></div>
-    </div>
-    <div class="form-field">
-      <label>Максимальное значение</label>
-      <div><%= @field.max_value %></div>
-    </div>
-    <div class="form-field">
-      <label>Шаг</label>
-      <div><%= @field.step %></div>
-    </div>
+    <% if @field.show_tooltip %>
+      <div class="form-field">
+        <label>Подсказка</label>
+        <div><%= @field.tooltip %></div>
+      </div>
+    <% end %>
+    <% if %w[text textarea].include?(@field.field_type) %>
+      <div class="form-field">
+        <label>Числовое</label>
+        <div><%= checkbox_val(@field.is_numeric) %></div>
+      </div>
+    <% end %>
+    <% if @field.is_numeric %>
+      <div class="form-field">
+        <label>Не форматировать</label>
+        <div><%= checkbox_val(@field.no_format) %></div>
+      </div>
+      <div class="form-field">
+        <label>Количество знаков после запятой</label>
+        <div><%= @field.precision %></div>
+      </div>
+      <div class="form-field">
+        <label>Минимальное значение</label>
+        <div><%= @field.min_value %></div>
+      </div>
+      <div class="form-field">
+        <label>Максимальное значение</label>
+        <div><%= @field.max_value %></div>
+      </div>
+      <div class="form-field">
+        <label>Шаг</label>
+        <div><%= @field.step %></div>
+      </div>
+    <% end %>
     <div class="form-field">
       <label>Значение по-умолчанию</label>
       <div><%= @field.default_value %></div>
@@ -86,7 +94,7 @@
     <%= draw_back_button(path: collection_item_path(@field.item)) %>
 
     <%# if policy(@field).restore? %>
-      <%#= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_field_path(@field), method: :post, class: 'btn btn-warning float-right') %>
+    <%#= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_field_path(@field), method: :post, class: 'btn btn-warning float-right') %>
     <%# end %>
     <% if policy(@field).destroy? %>
       <%= draw_delete_button(path: collection_item_field_path(@field.item, @field)) %>
