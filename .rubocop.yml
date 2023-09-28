@@ -181,7 +181,12 @@ Metrics/AbcSize:
   Exclude:
     - 'db/**/*'
     - 'app/controllers/web/users/*'
+    - 'app/helpers/web/**/*'
     - 'lib/generators/**/*'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/helpers/web/**/*'
 
 Metrics/BlockLength:
   Exclude:
