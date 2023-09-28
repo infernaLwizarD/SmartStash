@@ -21,6 +21,16 @@
         <%= form.label :sort_order, '№ (Порядок сортировки)' %>
         <%= form.number_field :sort_order, class: 'form-control form-control-sm', value: @item.new_record? ? Collection::Item.max_sort_order_by_level(params[:parent_id]) + 1 : @item.sort_order %>
       </div>
+
+      <%= form.fields_for :values do |values_form| %>
+        <div class="form-group">
+          <%= values_form.label :value, values_form.object.field.label %>
+          <%= field_by_type(values_form) %>
+        </div>
+        <%= values_form.hidden_field :creator_id, value: current_user.id %>
+        <%= values_form.hidden_field :collection_item_id, value: values_form.object.collection_item_id %>
+        <%= values_form.hidden_field :collection_field_id, value: values_form.object.collection_field_id %>
+      <% end %>
     </div>
 
     <div class="card-footer">

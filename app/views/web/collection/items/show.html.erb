@@ -40,6 +40,13 @@
       <label>№ (Порядок сортировки)</label>
       <div><%= @item.sort_order %></div>
     </div>
+
+    <% @item.values.each do |value| %>
+      <div class="form-group">
+        <label><%= value.field.label %></label>
+        <div class="line-break"><%= value.value %></div>
+      </div>
+    <% end %>
   </div>
 
   <div class="card-footer">
@@ -64,7 +71,7 @@
     <div class="row">
       <div class="col col-md-11">
         <div class="row align-items-center display-flex">
-          <div class="m-1"><h3 class="card-title">Поля</h3></div>
+          <div class="m-1"><h3 class="card-title">Поля дочерних коллекций</h3></div>
           <div class="m-1">
             <%== pagy_bootstrap_nav_sm(@pagy_f) %>
           </div>
@@ -115,6 +122,7 @@
     <div class="row">
       <div class="col col-md-11">
         <div class="row align-items-center display-flex">
+          <div class="m-1"><h3 class="card-title">Дочерние коллекции</h3></div>
           <div class="m-1">
             <%== pagy_bootstrap_nav_sm(@pagy_q) %>
           </div>

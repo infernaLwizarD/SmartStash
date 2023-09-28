@@ -28,6 +28,9 @@ class Web::Collection::ItemsController < Web::ApplicationController
     authorize Collection::Item
 
     @item = Collection::Item.new
+    parent = @item.parent || Collection::Item.find(params[:parent_id])
+    parent&.fields&.map { |field| @item.values.build(collection_field_id: field.id) }
+
     respond_with @item
   end
 
@@ -76,7 +79,9 @@ class Web::Collection::ItemsController < Web::ApplicationController
   end
 
   def item_params
-    attributes = %i[label parent_id sort_order]
+    attributes = [:label, :parent_id, :sort_order, {
+      values_attributes: %i[id value creator_id collection_item_id collection_field_id]
+    }]
     params.require(:collection_item).permit(attributes)
   end
 end

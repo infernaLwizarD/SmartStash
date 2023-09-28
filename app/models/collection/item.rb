@@ -3,8 +3,11 @@ class Collection::Item < ApplicationRecord
   include Collection::ItemRansack
   include Discard::Model
 
-  has_many :fields, class_name: 'Collection::Field', foreign_key: :collection_item_id, inverse_of: :item
   belongs_to :creator, class_name: 'User'
+  has_many :fields, class_name: 'Collection::Field', foreign_key: :collection_item_id, inverse_of: :item
+  has_many :values, class_name: 'Collection::Value', foreign_key: :collection_item_id, inverse_of: :item
+
+  accepts_nested_attributes_for :values
 
   validates :label, presence: true
   validates :sort_order, presence: true, numericality: { only_integer: true },
