@@ -144,6 +144,41 @@ ALTER SEQUENCE public.collection_items_id_seq OWNED BY public.collection_items.i
 
 
 --
+-- Name: collection_values; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.collection_values (
+    id bigint NOT NULL,
+    collection_item_id bigint NOT NULL,
+    collection_field_id bigint NOT NULL,
+    creator_id bigint NOT NULL,
+    value text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    discarded_at timestamp without time zone
+);
+
+
+--
+-- Name: collection_values_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.collection_values_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: collection_values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.collection_values_id_seq OWNED BY public.collection_values.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -217,6 +252,13 @@ ALTER TABLE ONLY public.collection_items ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: collection_values id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_values ALTER COLUMN id SET DEFAULT nextval('public.collection_values_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -245,6 +287,14 @@ ALTER TABLE ONLY public.collection_fields
 
 ALTER TABLE ONLY public.collection_items
     ADD CONSTRAINT collection_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: collection_values collection_values_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_values
+    ADD CONSTRAINT collection_values_pkey PRIMARY KEY (id);
 
 
 --
@@ -296,6 +346,34 @@ CREATE INDEX index_collection_items_on_creator_id ON public.collection_items USI
 --
 
 CREATE INDEX index_collection_items_on_discarded_at ON public.collection_items USING btree (discarded_at);
+
+
+--
+-- Name: index_collection_values_on_collection_field_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_values_on_collection_field_id ON public.collection_values USING btree (collection_field_id);
+
+
+--
+-- Name: index_collection_values_on_collection_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_values_on_collection_item_id ON public.collection_values USING btree (collection_item_id);
+
+
+--
+-- Name: index_collection_values_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_values_on_creator_id ON public.collection_values USING btree (creator_id);
+
+
+--
+-- Name: index_collection_values_on_discarded_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collection_values_on_discarded_at ON public.collection_values USING btree (discarded_at);
 
 
 --
@@ -355,11 +433,35 @@ CREATE INDEX item_desc_idx ON public.collection_item_hierarchies USING btree (de
 
 
 --
+-- Name: collection_values fk_rails_1cca46c64e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_values
+    ADD CONSTRAINT fk_rails_1cca46c64e FOREIGN KEY (creator_id) REFERENCES public.users(id);
+
+
+--
 -- Name: collection_fields fk_rails_2df3194bfe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.collection_fields
     ADD CONSTRAINT fk_rails_2df3194bfe FOREIGN KEY (collection_item_id) REFERENCES public.collection_items(id);
+
+
+--
+-- Name: collection_values fk_rails_417827dd31; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_values
+    ADD CONSTRAINT fk_rails_417827dd31 FOREIGN KEY (collection_field_id) REFERENCES public.collection_fields(id);
+
+
+--
+-- Name: collection_values fk_rails_77824f934d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.collection_values
+    ADD CONSTRAINT fk_rails_77824f934d FOREIGN KEY (collection_item_id) REFERENCES public.collection_items(id);
 
 
 --
@@ -394,6 +496,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230821202540'),
 ('20230823203909'),
 ('20230823211123'),
-('2023091311514255');
+('2023091311514255'),
+('20230924201356');
 
 

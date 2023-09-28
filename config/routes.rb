@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :items do
         post 'restore', on: :member
         resources :fields
+        resources :values
       end
     end
   end
