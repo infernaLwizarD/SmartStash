@@ -28,8 +28,8 @@ class Web::Collection::ItemsController < Web::ApplicationController
     authorize Collection::Item
 
     @item = Collection::Item.new
-    parent = @item.parent || Collection::Item.find(params[:parent_id])
-    parent&.fields&.map { |field| @item.values.build(collection_field_id: field.id) }
+    parent = @item.parent || Collection::Item.where(id: params[:parent_id]).first
+    parent&.fields&.map { |field| @item.values.build(collection_field_id: field.id) } if parent.present?
 
     respond_with @item
   end
