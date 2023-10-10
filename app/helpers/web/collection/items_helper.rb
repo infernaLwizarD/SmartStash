@@ -23,7 +23,20 @@ module Web::Collection::ItemsHelper
         end
       end
     when 'file'
-      values_form.file_field(:value, class: 'form-control form-control-sm')
+      values_form.file_field(:file, class: 'form-control form-control-sm')
+    end
+  end
+
+  def value_by_type(value)
+    case value.field.field_type
+    when 'file'
+      if value.file.attached?
+        link_to(value.file&.filename, rails_blob_path(value.file, disposition: 'attachment'))
+      else
+        ''
+      end
+    else
+      value.value
     end
   end
 end

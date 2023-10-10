@@ -80,7 +80,7 @@ class Web::Collection::ItemsController < Web::ApplicationController
 
   def item_params
     attributes = [:label, :parent_id, :sort_order, {
-      values_attributes: %i[id value creator_id collection_item_id collection_field_id]
+      values_attributes: %i[id value creator_id collection_item_id collection_field_id file]
     }]
     params.require(:collection_item).permit(attributes)
   end
