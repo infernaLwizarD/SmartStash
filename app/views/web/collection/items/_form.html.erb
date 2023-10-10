@@ -22,7 +22,7 @@
         <%= form.number_field :sort_order, class: 'form-control form-control-sm', value: @item.new_record? ? Collection::Item.max_sort_order_by_level(params[:parent_id]) + 1 : @item.sort_order %>
       </div>
 
-      <%= form.fields_for :values do |values_form| %>
+      <%= form.fields_for :values, @item.values.sort_by{ |v| v.field.sort_order } do |values_form| %>
         <div class="form-group">
           <%= values_form.label :value, values_form.object.field.label %>
           <%= field_by_type(values_form) %>

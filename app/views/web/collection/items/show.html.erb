@@ -41,7 +41,7 @@
       <div><%= @item.sort_order %></div>
     </div>
 
-    <% @item.values.each do |value| %>
+    <% @item.values.sort_by{ |v| v.field.sort_order }.each do |value| %>
       <div class="form-group">
         <label><%= value.field.label %></label>
         <div class="line-break"><%= value.value %></div>
