@@ -29,8 +29,12 @@ class Web::Collection::FieldsController < Web::ApplicationController
     @field = Collection::Field.new(field_params)
     @field.collection_item_id = params[:item_id]
     @field.creator_id = current_user.id
-    flash[:notice] = 'Шаблон успешно создан(а)' if @field.save
-    redirect_to collection_item_field_path(@field.item, @field)
+    if @field.save
+      flash[:notice] = 'Шаблон успешно создан(а)'
+      redirect_to collection_item_field_path(@field.item, @field)
+    else
+      respond_with @field.item, @field
+    end
   end
 
   def update
