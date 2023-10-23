@@ -30,7 +30,9 @@ Rails.application.routes.draw do
     namespace :collection do
       resources :items do
         post 'restore', on: :member
-        resources :fields
+        resources :fields do
+          post 'restore', on: :member
+        end
         resources :values
       end
     end

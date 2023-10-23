@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.shared_examples 'delete_collection_field' do
   let_it_be(:item) { create(:collection_item, creator_id: user.id) }
   let_it_be(:deleting_collection_field) { create(:collection_field, creator: user, item:) }
+  let_it_be(:deleted_collection_field) { create(:collection_field, :discarded, creator: user, item:) }
 
   it 'удаляет поле коллекции' do
     within('#items-table') do
@@ -22,16 +23,21 @@ RSpec.shared_examples 'delete_collection_field' do
     expect(page).to have_content 'Поле коллекции удалено'
   end
 
-  # it 'восстанавливает поле коллекции' do
-  #   within('#fields-table') do
-  #     expect(page).to have_content(deleted_collection_field.label)
-  #     click_link(deleted_collection_field.label)
-  #   end
-  #
-  #   click_on 'Восстановить'
-  #
-  #   expect(page).to have_content 'Поле коллекции восстановлено'
-  # end
+  it 'восстанавливает поле коллекции' do
+    within('#items-table') do
+      expect(page).to have_content(item.label)
+      click_link(item.label)
+    end
+
+    within('#fields-table') do
+      expect(page).to have_content(deleted_collection_field.label)
+      click_link(deleted_collection_field.label)
+    end
+
+    click_on 'Восстановить'
+
+    expect(page).to have_content 'Поле коллекции восстановлено'
+  end
 end
 
 RSpec.describe 'Удаление поля коллекции', js: true, type: :system do

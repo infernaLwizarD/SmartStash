@@ -93,9 +93,9 @@
 
     <%= draw_back_button(path: collection_item_path(@field.item)) %>
 
-    <%# if policy(@field).restore? %>
-    <%#= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_field_path(@field), method: :post, class: 'btn btn-warning float-right') %>
-    <%# end %>
+    <% if policy(@field).restore? %>
+      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_item_field_path(@field.item, @field), method: :post, class: 'btn btn-warning float-right') %>
+    <% end %>
     <% if policy(@field).destroy? %>
       <%= draw_delete_button(path: collection_item_field_path(@field.item, @field)) %>
     <% end %>

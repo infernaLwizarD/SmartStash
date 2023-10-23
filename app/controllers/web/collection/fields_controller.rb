@@ -55,7 +55,7 @@ class Web::Collection::FieldsController < Web::ApplicationController
   def restore
     @field.undiscard!
     flash[:notice] = 'Поле коллекции восстановлено'
-    respond_with @field
+    redirect_to collection_item_field_path(@field.item, @field)
   end
 
   private
