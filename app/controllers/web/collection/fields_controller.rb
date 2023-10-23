@@ -30,7 +30,7 @@ class Web::Collection::FieldsController < Web::ApplicationController
     @field.collection_item_id = params[:item_id]
     @field.creator_id = current_user.id
     if @field.save
-      flash[:notice] = 'Шаблон успешно создан(а)'
+      flash[:notice] = 'Поле коллекции успешно добавлено'
       redirect_to collection_item_field_path(@field.item, @field)
     else
       respond_with @field.item, @field
@@ -39,7 +39,7 @@ class Web::Collection::FieldsController < Web::ApplicationController
 
   def update
     if @field.update(field_params)
-      flash[:notice] = 'Шаблон отредактирован(а)' if @field.saved_changes?
+      flash[:notice] = 'Поле коллекции отредактировано' if @field.saved_changes?
       redirect_to action: :show
     else
       render :edit
@@ -48,13 +48,13 @@ class Web::Collection::FieldsController < Web::ApplicationController
 
   def destroy
     @field.discard
-    flash[:notice] = 'Шаблон удален(а)'
+    flash[:notice] = 'Поле коллекции удалено'
     redirect_to collection_item_path(@field.item)
   end
 
   def restore
     @field.undiscard!
-    flash[:notice] = 'Шаблон восстановлен(а)'
+    flash[:notice] = 'Поле коллекции восстановлено'
     respond_with @field
   end
 
