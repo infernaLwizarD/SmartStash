@@ -62,7 +62,7 @@ class Web::Collection::ItemsController < Web::ApplicationController
       @item.descendants.discard_all
       flash[:notice] = 'Коллекция удалена'
     end
-    redirect_to collection_items_path
+    redirect_to @item.root? ? collection_items_path : collection_item_path(@item.parent)
   end
 
   def restore
