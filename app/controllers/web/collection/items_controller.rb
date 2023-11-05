@@ -21,6 +21,8 @@ class Web::Collection::ItemsController < Web::ApplicationController
     @f.sorts = 'sort_order asc' if @f.sorts.empty?
     @pagy_f, @fields = pagy(@f.result, page_param: :page_f)
 
+    jstree
+
     respond_with @item
   end
 
@@ -83,5 +85,19 @@ class Web::Collection::ItemsController < Web::ApplicationController
       values_attributes: %i[id value creator_id collection_item_id collection_field_id file]
     }]
     params.require(:collection_item).permit(attributes)
+  end
+
+  def jstree
+    @tree_data = []
+    @top_level_cnt = 0
+    @item.root&.self_and_descendants&.each do |item|
+      @tree_data.push({
+                        id: item.id, parent: item.parent&.id || '#',
+                        text: item.label,
+                        a_attr: { href: collection_item_url(item) },
+                        state: { selected: @item == item, opened: @item == item }
+                      })
+      @top_level_cnt += 1 if item.parent&.id.blank?
+    end
   end
 end

@@ -1,8 +1,6 @@
-// console.log('item file executed!');
 //$(document).on('turbolinks:load', function() {
 $(document).ready(function () {
     // console.log('event triggered!');
-
     $('form[id="collection/field_search"], form[id="collection/item_search"]').on('change', function() {
         page_reload();
     });
@@ -33,5 +31,24 @@ $(document).ready(function () {
 
         window.location.href = url;
     }
+
+    $('#collections_tree').jstree({
+        core: {
+            data: jsonTreeData,
+            themes: { 'stripes': true },
+        },
+        search: {
+            case_insensitive: true,
+            show_only_matches: true
+        },
+        plugins: ['search']
+    }).bind('select_node.jstree', function (e, data) {
+        let href = data.node.a_attr.href;
+        window.open(href, '_self');
+    });
+
+    $('#tree_search').keyup(function() {
+        $('#collections_tree').jstree('search', $(this).val());
+    });
 });
 //});

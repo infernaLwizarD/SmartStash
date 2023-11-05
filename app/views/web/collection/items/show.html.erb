@@ -1,4 +1,9 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'plugins/jstree/default/style.min' %>
+  <%= javascript_include_tag 'plugins/jstree.min' %>
+<% end %>
 <% content_for :body_scripts do %>
+  <%= javascript_tag "var jsonTreeData = #{@tree_data.to_json};" %>
   <%= javascript_include_tag 'resources/collection/item/item' %>
 <% end %>
 
@@ -14,6 +19,17 @@
     },
   ]
 %>
+
+<% tree_height = 40 + 24 * @top_level_cnt %>
+<div class="card card-primary">
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <%= search_field_tag :tree_search, '', placeholder: 'Поиск', class: 'search-field form-control form-control-sm mw-500' %>
+    </span>
+    </div>
+    <div id="collections_tree" style="min-height: <%= tree_height > 300 ? 300 : tree_height %>px; max-height: 300px; overflow: auto;"></div>
+  </div>
+</div>
 
 <div class="card card-primary">
   <div class="card-header">
