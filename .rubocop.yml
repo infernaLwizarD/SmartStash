@@ -185,6 +185,7 @@ Metrics/AbcSize:
     - 'lib/generators/**/*'
 
 Metrics/CyclomaticComplexity:
+  Max: 10
   Exclude:
     - 'app/helpers/web/**/*'
 
