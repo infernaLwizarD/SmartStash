@@ -9,6 +9,12 @@ h1, h2, h3, h4, h5, h6,
 .line-break {
   white-space: pre-line;
 }
+.discarded {
+  background-color: #dc3545 !important;
+}
+.jstree-clicked.discarded, .discarded:hover {
+  background-color: #fc4050 !important;
+}
 
 .mw-100px {
   max-width: 100px;

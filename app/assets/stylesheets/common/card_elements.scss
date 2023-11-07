@@ -17,6 +17,15 @@
   max-width: 1rem;
 }
 
+// card //
+.top-card-title {
+  margin: 0 0 .25rem .25rem;
+}
+.card-body .form-group:last-child {
+  margin-bottom: 0 !important;
+}
+//----//
+
 // form-card //
 .form-field {
   border-top: 1px solid #dee2e6;
@@ -41,40 +50,31 @@
   background-color: #73b8ff;
   color: #fff;
 }
-
 .card-primary-2:not(.card-outline) > .card-header a {
   color: #495057;
 }
-
 .card-primary-2:not(.card-outline) > .card-header a.active {
   color: #1f2d3d;
 }
-
 .card-primary-2:not(.card-outline) > .card-header .pagination .page-item.active a {
   color: #fff;
 }
-
 .card-primary-2:not(.card-outline) > .card-header .pagination .page-item.active a:hover {
   color: #f1f1f1;
 }
-
 .card-primary-2.card-outline {
   border-top: 3px solid #73b8ff;
 }
-
 .card-primary-2.card-outline-tabs > .card-header a:hover {
   border-top: 3px solid #dee2e6;
 }
-
 .card-primary-2.card-outline-tabs > .card-header a.active,
 .card-primary-2.card-outline-tabs > .card-header a.active:hover {
   border-top: 3px solid #73b8ff;
 }
-
 .card-primary-2:not(.card-outline) > .card-header .btn-tool {
   color: rgba(255, 255, 255, 0.8);
 }
-
 .card-primary-2:not(.card-outline) > .card-header .btn-tool:hover {
   color: #495057;
 }
