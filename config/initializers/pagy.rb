@@ -211,7 +211,7 @@ Pagy::DEFAULT[:overflow] = :last_page
 # Examples:
 # load the "de" built-in locale:
 # Pagy::I18n.load(locale: 'de')
-Pagy::I18n.load(locale: 'ru')
+Pagy::I18n.load(locale: 'ru', filepath: 'config/locales/pagy.ru.yml')
 #
 # load the "de" locale defined in the custom file at :filepath:
 # Pagy::I18n.load(locale: 'de', filepath: 'path/to/pagy-de.yml')
