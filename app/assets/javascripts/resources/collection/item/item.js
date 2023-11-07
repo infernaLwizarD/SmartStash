@@ -45,6 +45,11 @@ $(document).ready(function () {
     }).bind('select_node.jstree', function (e, data) {
         let href = data.node.a_attr.href;
         window.open(href, '_self');
+    }).bind('ready.jstree', function(e, data) {
+        let selected_item = $('.jstree-clicked');
+        if (selected_item) {
+            $("#collections_tree").scrollTop(selected_item.position().top - 80);
+        }
     });
 
     $('#tree_search').keyup(function() {
