@@ -1,29 +1,30 @@
 <% url = url || nil %>
 <%= form_with(model: @item, url: url) do |form| %>
-  <div class="card card-primary">
-    <div class="card-header">
+  <h6 class="top-card-title">Коллекция</h6>
+  <div class="card card-primary card-outline">
+    <!--<div class="card-header">
       <h3 class="card-title m-0">Коллекция</h3>
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
       </div>
-    </div>
+    </div>-->
 
-    <div class="card-body">
+    <div class="card-body form-card">
       <%= render 'web/shared/error_messages', resource: @item %>
       <% if @item.new_record? %>
         <%= form.hidden_field :parent_id, value: params[:parent_id] %>
       <% end %>
-      <div class="form-group">
+      <div class="form-field">
         <%= form.label :label, 'Наименование' %>
-        <%= form.text_field :label, class: 'form-control form-control-sm' %>
+        <%= form.text_area :label, rows: 1, class: 'form-control form-control-sm w-500 mw-100 rh' %>
       </div>
-      <div class="form-group">
+      <div class="form-field">
         <%= form.label :sort_order, '№ (Порядок сортировки)' %>
-        <%= form.number_field :sort_order, class: 'form-control form-control-sm', value: @item.new_record? ? Collection::Item.max_sort_order_by_level(params[:parent_id]) + 1 : @item.sort_order %>
+        <%= form.number_field :sort_order, class: 'form-control form-control-sm mw-100px', value: @item.new_record? ? Collection::Item.max_sort_order_by_level(params[:parent_id]) + 1 : @item.sort_order %>
       </div>
 
       <%= form.fields_for :values, @item.values.sort_by{ |v| v.field.sort_order } do |values_form| %>
-        <div class="form-group">
+        <div class="form-field">
           <%= values_form.label :value, values_form.object.field.label %>
           <%= field_by_type(values_form) %>
         </div>
@@ -34,8 +35,8 @@
     </div>
 
     <div class="card-footer">
-      <%= link_to icon('fas', 'arrow-left', 'Назад'), back_path, class: 'btn btn-secondary' %>
-      <%= form.submit 'Сохранить', class: 'btn btn-success float-right' %>
+      <%= draw_back_button(path: back_path) %>
+      <%= draw_save_button %>
     </div>
   </div>
 <% end %>

@@ -1,13 +1,7 @@
 <% url = url || nil %>
 <%= form_with(model: @field, url: url) do |form| %>
-  <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title m-0">Поле дочерней коллекции</h3>
-      <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-      </div>
-    </div>
-
+  <h6 class="top-card-title">Поле дочерней коллекции</h6>
+  <div class="card card-primary card-outline">
     <div class="card-body form-card">
       <%= render 'web/shared/error_messages', resource: @field %>
 
@@ -79,8 +73,8 @@
     </div>
 
     <div class="card-footer">
-      <%= link_to icon('fas', 'arrow-left', 'Назад'), back_path, class: 'btn btn-secondary' %>
-      <%= form.submit 'Сохранить', class: 'btn btn-success float-right' %>
+      <%= draw_back_button(path: back_path) %>
+      <%= draw_save_button %>
     </div>
   </div>
 <% end %>

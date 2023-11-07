@@ -9,9 +9,18 @@
       <div class="card-body">
         Всего: <%= User.all.size %>
       </div>
-<!--      <div class="card-footer">-->
-<!--        The footer of the card-->
-<!--      </div>-->
+      <!--<div class="card-footer">-->
+      <!--The footer of the card-->
+      <!--</div>-->
+    </div>
+
+    <div class="card bg-primary">
+      <div class="card-header">
+        <h3 class="card-title">Коллекции</h3>
+      </div>
+      <div class="card-body">
+        Всего: <%= Collection::Item.kept.roots.size %>
+      </div>
     </div>
   </div>
 </div>

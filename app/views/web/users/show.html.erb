@@ -11,24 +11,18 @@
   ]
 %>
 
-<div class="card card-primary">
-  <div class="card-header">
-    <h3 class="card-title m-0">Пользователь</h3>
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-    </div>
-  </div>
-
-  <div class="card-body">
-    <div class="form-group">
+<h6 class="top-card-title">Пользователь</h6>
+<div class="card card-primary card-outline">
+  <div class="card-body form-card">
+    <div class="form-field">
       <label>Имя пользователя</label>
       <div><%= @user.username %></div>
     </div>
-    <div class="form-group">
+    <div class="form-field">
       <label>E-mail</label>
       <div><%= @user.email %></div>
     </div>
-    <div class="form-group">
+    <div class="form-field">
       <label>Роль</label>
       <div><%= @user.user_role_label %></div>
     </div>
@@ -39,16 +33,16 @@
       <%= draw_edit_button(path: edit_user_path(@user)) %>
     <% end %>
     <% if policy(@user).lock? %>
-      <%= link_to(icon('fas', 'lock', 'Заблокировать'), lock_user_path(@user), method: :post, class: 'btn btn-warning') %>
+      <%= link_to(icon('fas', 'lock', 'Заблокировать'), lock_user_path(@user), method: :post, class: 'btn-sm btn-warning') %>
     <% end %>
     <% if policy(@user).unlock? %>
-      <%= link_to(icon('fas', 'unlock', 'Разблокировать'), unlock_user_path(@user), method: :post, class: 'btn btn-warning') %>
+      <%= link_to(icon('fas', 'unlock', 'Разблокировать'), unlock_user_path(@user), method: :post, class: 'btn-sm btn-warning') %>
     <% end %>
 
     <%= draw_back_button(path: users_path) %>
 
     <% if policy(@user).restore? %>
-      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_user_path(@user), method: :post, class: 'btn btn-warning float-right') %>
+      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_user_path(@user), method: :post, class: 'btn-sm btn-warning float-right') %>
     <% end %>
     <% if policy(@user).destroy? %>
       <%= draw_delete_button(path: @user) %>

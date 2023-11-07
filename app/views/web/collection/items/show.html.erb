@@ -29,36 +29,34 @@
     </div>
     <div id="collections_tree" style="min-height: <%= tree_height > 300 ? 300 : tree_height %>px; max-height: 300px; overflow: auto;"></div>
   </div>
+
+  <div class="card-footer">
+    <%= draw_back_button(path: @item.top_level? ? collection_items_path : collection_item_path(@item.parent)) %>
+  </div>
 </div>
 
-<div class="card card-primary">
-  <div class="card-header">
-    <h3 class="card-title m-0">Коллекция</h3>
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-    </div>
-  </div>
-
-  <div class="card-body">
+<h6 class="top-card-title mt-4">Коллекция</h6>
+<div class="card card-primary card-outline">
+  <div class="card-body form-card">
     <% if !@item.top_level? %>
-      <div class="form-group">
+      <div class="form-field">
         <label>Родительская коллекция</label>
         <div><%= link_to(@item.parent.label, collection_item_path(@item.parent)) %></div>
       </div>
     <% end %>
 
-    <div class="form-group">
+    <div class="form-field">
       <label>Наименование</label>
       <div><%= @item.label %></div>
     </div>
 
-    <div class="form-group">
+    <div class="form-field">
       <label>№ (Порядок сортировки)</label>
       <div><%= @item.sort_order %></div>
     </div>
 
     <% @item.values.sort_by{ |v| v.field.sort_order }.each do |value| %>
-      <div class="form-group">
+      <div class="form-field">
         <label><%= value.field.label %></label>
         <div class="line-break"><%= value_by_type(value) %></div>
       </div>
@@ -70,11 +68,10 @@
       <%= draw_edit_button(path: edit_collection_item_path(@item)) %>
     <% end %>
 
-    <%= draw_back_button(path: @item.top_level? ? collection_items_path : collection_item_path(@item.parent)) %>
-
     <% if policy(@item).restore? %>
-      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_item_path(@item), method: :post, class: 'btn btn-warning float-right') %>
+      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_collection_item_path(@item), method: :post, class: 'btn-sm btn-warning float-right') %>
     <% end %>
+
     <% if policy(@item).destroy? %>
       <%= draw_delete_button(path: @item) %>
     <% end %>

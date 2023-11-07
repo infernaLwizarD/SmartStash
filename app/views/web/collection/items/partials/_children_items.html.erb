@@ -1,23 +1,22 @@
-<div id="items-card" class="card card-primary-2">
+<h6 class="top-card-title mt-4">Дочерние коллекции</h6>
+<div id="items-card" class="card card-primary-2 card-outline">
   <div class="card-header">
     <div class="row">
       <div class="col col-md-11">
         <div class="row align-items-center display-flex">
-          <div class="m-1"><h3 class="card-title">Дочерние коллекции</h3></div>
-          <div class="m-1">
-            <%== pagy_bootstrap_nav_sm(@pagy_q) %>
-          </div>
-          <%= render 'web/shared/search_form', q: @q, url: collection_item_path(@item), search_key: :q, onchange_action: '' %>
           <div class="m-1">
             <% if policy(@item).create? %>
               <div><%= draw_new_button(path: new_collection_item_path(parent_id: @item.id), button: true) %></div>
             <% end %>
           </div>
+          <%= render 'web/shared/search_form', q: @q, url: collection_item_path(@item), search_key: :q, onchange_action: '' %>
         </div>
       </div>
       <div class="col col-md-1">
         <div class="card-tools float-right">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <div class="m-1">
+            <%== pagy_bootstrap_nav_sm(@pagy_q) %>
+          </div>
         </div>
       </div>
     </div>

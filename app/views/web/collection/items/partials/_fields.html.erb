@@ -1,23 +1,22 @@
-<div id="fields-card" class="card card-primary-2">
+<h6 class="top-card-title mt-4">Поля дочерних коллекций</h6>
+<div id="fields-card" class="card card-primary-2 card-outline">
   <div class="card-header">
     <div class="row">
       <div class="col col-md-11">
         <div class="row align-items-center display-flex">
-          <div class="m-1"><h3 class="card-title">Поля дочерних коллекций</h3></div>
-          <div class="m-1">
-            <%== pagy_bootstrap_nav_sm(@pagy_f) %>
-          </div>
-          <%= render('web/shared/search_form', q: @f, url: collection_item_path(@item), search_key: :f, show_search_field: false, onchange_action: '') %>
           <div class="m-1">
             <% if policy(Collection::Field).create? %>
               <div><%= draw_new_button(path: new_collection_item_field_path(@item), button: true) %></div>
             <% end %>
           </div>
+          <%= render('web/shared/search_form', q: @f, url: collection_item_path(@item), search_key: :f, show_search_field: false, onchange_action: '') %>
         </div>
       </div>
       <div class="col col-md-1">
         <div class="card-tools float-right">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <div class="m-1">
+            <%== pagy_bootstrap_nav_sm(@pagy_f) %>
+          </div>
         </div>
       </div>
     </div>
