@@ -89,15 +89,28 @@ class Web::Collection::ItemsController < Web::ApplicationController
 
   def jstree
     @tree_data = []
-    @top_level_cnt = 0
+    calc_levels_cnt
+
     @item.root&.self_and_descendants&.each do |item|
+      is_current = @item == item
       @tree_data.push({
                         id: item.id, parent: item.parent&.id || '#',
                         text: item.label,
-                        a_attr: { href: collection_item_url(item) },
-                        state: { selected: @item == item, opened: @item == item }
+                        a_attr: {
+                          href: collection_item_url(item),
+                          class: item.kept? ? '' : 'discarded'
+                        },
+                        state: { selected: is_current, opened: is_current }
                       })
-      @top_level_cnt += 1 if item.parent&.id.blank?
+    end
+  end
+
+  def calc_levels_cnt
+    @levels_cnt = 1
+    @levels_cnt += @item.find_all_by_generation(1).size
+    @item.depth.times do |i|
+      generation = i + 1
+      @levels_cnt += @item.root&.find_all_by_generation(generation)&.size
     end
   end
 end
