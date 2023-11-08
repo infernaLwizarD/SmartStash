@@ -31,11 +31,11 @@
   border-top: 1px solid #dee2e6;
   padding: 0.75rem;
 }
-.form-card > .form-field:first-child {
+.form-card > div.form-field:first-of-type {
   border-top: 0;
   padding-top: 0 !important;
 }
-.form-card > .form-field:last-child {
+.form-card > div.form-field:last-of-type {
   padding-bottom: 0 !important;
 }
 .form-card > .form-field input[type=number],
