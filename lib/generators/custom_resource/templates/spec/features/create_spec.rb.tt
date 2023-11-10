@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.shared_examples 'create_<%= class_name.downcase %>' do
+RSpec.shared_examples 'create_<%= _class_name_ug %>' do
   it '<%= 'создаёт'.force_encoding('UTF-8') %> <%= resource_name %>' do
     click_on '<%= 'Добавить'.force_encoding('UTF-8') %>', match: :first
 
@@ -14,7 +14,7 @@ end
 RSpec.describe '<%= 'Создание нового'.force_encoding('UTF-8') %> <%= resource_name.downcase %>', js: true, type: :system do
   before do
     logged_as(user)
-    visit <%= plural_name.downcase %>_path
+    visit <%= _class_name_ug.pluralize %>_path
 
     # within('.main-sidebar') do
     #   click_link('<%= r_capitalize(resource_name) %>')
@@ -22,15 +22,15 @@ RSpec.describe '<%= 'Создание нового'.force_encoding('UTF-8') %> <
   end
 
   context '<%= 'Администратор'.force_encoding('UTF-8') %>' do
-    let(:user) { create(:user, :admin) }
+    let_it_be(:user) { create(:user, :admin) }
 
-    include_examples 'create_<%= class_name.downcase %>'
+    include_examples 'create_<%= _class_name_ug %>'
   end
 
   context '<%= 'Обычный пользователь'.force_encoding('UTF-8') %>' do
-    let(:user) { create(:user) }
+    let_it_be(:user) { create(:user) }
 
-    include_examples 'create_<%= class_name.downcase %>'
+    include_examples 'create_<%= _class_name_ug %>'
 
     # it '<%= 'не создаёт'.force_encoding('UTF-8') %> <%= resource_name %>' do
     #   expect(page).to have_css('h1', text: '<% r_capitalize(resource_name) %>')

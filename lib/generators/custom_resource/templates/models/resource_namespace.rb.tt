@@ -1,0 +1,5 @@
+module <%= class_name.deconstantize %>
+  def self.table_name_prefix
+    '<%= class_name.deconstantize.underscore %>_'
+  end
+end

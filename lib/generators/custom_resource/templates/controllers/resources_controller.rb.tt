@@ -1,23 +1,23 @@
 class Web::<%= class_name.pluralize %>Controller < Web::ApplicationController
   respond_to :html, :json
-  before_action :find_and_authorize_<%= class_name.downcase %>, except: %i[new create index]
+  before_action :find_and_authorize_<%= _class_name_dd %>, except: %i[new create index]
 
   def index
     authorize <%= class_name %>
 
     @q = policy_scope(<%= class_name %>).ransack(params[:q])
-    @pagy, @<%= plural_name.downcase %> = pagy(@q.result)
+    @pagy, @<%= plural_name.underscore %> = pagy(@q.result)
   end
 
   def show
-    respond_with @<%= class_name.downcase %>
+    respond_with @<%= _class_name_dd %>
   end
 
   def new
     authorize <%= class_name %>
 
-    @<%= class_name.downcase %> = <%= class_name %>.new
-    respond_with @<%= class_name.downcase %>
+    @<%= _class_name_dd %> = <%= class_name %>.new
+    respond_with @<%= _class_name_dd %>
   end
 
   def edit
@@ -26,15 +26,15 @@ class Web::<%= class_name.pluralize %>Controller < Web::ApplicationController
   def create
     authorize <%= class_name %>
 
-    @<%= class_name.downcase %> = <%= class_name %>.new(<%= class_name.downcase %>_params)
-    @<%= class_name.downcase %>.creator_id = current_user.id
-    flash[:notice] = '<%= r_capitalize(resource_name) %> <%= 'успешно создан(а)'.force_encoding('UTF-8') %>' if @<%= class_name.downcase %>.save
-    respond_with @<%= class_name.downcase %>
+    @<%= _class_name_dd %> = <%= class_name %>.new(<%= _class_name_dd %>_params)
+    @<%= _class_name_dd %>.creator_id = current_user.id
+    flash[:notice] = '<%= r_capitalize(resource_name) %> <%= 'успешно создан(а)'.force_encoding('UTF-8') %>' if @<%= _class_name_dd %>.save
+    respond_with @<%= _class_name_dd %>
   end
 
   def update
-    if @<%= class_name.downcase %>.update(<%= class_name.downcase %>_params)
-      flash[:notice] = '<%= r_capitalize(resource_name) %><%= ' отредактирован(а)'.force_encoding('UTF-8') %>' if @<%= class_name.downcase %>.saved_changes?
+    if @<%= _class_name_dd %>.update(<%= _class_name_dd %>_params)
+      flash[:notice] = '<%= r_capitalize(resource_name) %><%= ' отредактирован(а)'.force_encoding('UTF-8') %>' if @<%= _class_name_dd %>.saved_changes?
       redirect_to action: :show
     else
       render :edit
@@ -42,26 +42,26 @@ class Web::<%= class_name.pluralize %>Controller < Web::ApplicationController
   end
 
   def destroy
-    @<%= class_name.downcase %>.discard
+    @<%= _class_name_dd %>.discard
     flash[:notice] = '<%= r_capitalize(resource_name) %><%= ' удален(а)'.force_encoding('UTF-8') %>'
-    redirect_to <%= plural_name.downcase %>_path
+    redirect_to <%= _class_name_ug.pluralize %>_path
   end
 
   def restore
-    @<%= class_name.downcase %>.undiscard!
+    @<%= _class_name_dd %>.undiscard!
     flash[:notice] = '<%= r_capitalize(resource_name) %><%= ' восстановлен(а)'.force_encoding('UTF-8') %>'
-    respond_with @<%= class_name.downcase %>
+    respond_with @<%= _class_name_dd %>
   end
 
   private
 
-  def find_and_authorize_<%= class_name.downcase %>
-    @<%= class_name.downcase %> = <%= class_name %>.find(params[:id])
-    authorize @<%= class_name.downcase %>
+  def find_and_authorize_<%= _class_name_dd %>
+    @<%= _class_name_dd %> = <%= class_name %>.find(params[:id])
+    authorize @<%= _class_name_dd %>
   end
 
-  def <%= class_name.downcase %>_params
+  def <%= _class_name_dd %>_params
     attributes = %i[label]
-    params.require(:<%= class_name.downcase %>).permit(attributes)
+    params.require(:<%= _class_name_dd %>).permit(attributes)
   end
 end

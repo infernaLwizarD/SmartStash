@@ -1,6 +1,6 @@
-class Create<%= class_name.pluralize %> < ActiveRecord::Migration[6.1]
+class Create<%= class_name.gsub('::', '').pluralize %> < ActiveRecord::Migration[6.1]
   def change
-    create_table :<%= plural_name.downcase %> do |t|
+    create_table :<%= _class_name_ug.pluralize %> do |t|
       t.string :label
       t.references :creator, null: false, foreign_key: {to_table: :users}
 

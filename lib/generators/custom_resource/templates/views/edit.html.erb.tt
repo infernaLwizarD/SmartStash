@@ -5,10 +5,10 @@
       path: <%= plural_name %>_path
     },
     {
-      title: @<%= class_name.underscore %>.label,
-      path: <%= class_name.underscore %>_path(@<%= class_name.underscore %>),
+      title: @<%= _class_name_dd %>.label,
+      path: <%= _class_name_ug %>_path(@<%= _class_name_dd %>),
     },
   ]
 %>
 
-<%%= render 'form', back_path: <%= class_name.underscore %>_path(@<%= class_name.underscore %>) %>
+<%%= render 'form', back_path: <%= _class_name_ug %>_path(@<%= _class_name_dd %>) %>

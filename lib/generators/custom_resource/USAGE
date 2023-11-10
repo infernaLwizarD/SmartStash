@@ -2,7 +2,21 @@ Description:
     Explain the generator
 
 Example:
-    bin/rails generate custom_resource Thing
+    rails generate custom_resource Foo::Bar, 'Foo bar'
 
     This will create:
-        what/will/it/create
+      create  app/models/foo/bar.rb
+      create  app/models/foo/concerns/bar_ransack.rb
+      create  app/controllers/web/foo/bars_controller.rb
+      create  app/policies/foo/bar_policy.rb
+      create  app/views/web/foo/bars/_form.html.erb
+      create  app/views/web/foo/bars/edit.html.erb
+      create  app/views/web/foo/bars/index.html.erb
+      create  app/views/web/foo/bars/new.html.erb
+      create  app/views/web/foo/bars/show.html.erb
+      create  spec/factories/foo/bars.rb
+      create  spec/features/foo/bars
+      create  spec/features/foo/bars/create_spec.rb
+      create  spec/features/foo/bars/delete_spec.rb
+      create  spec/features/foo/bars/update_spec.rb
+      create  db/migrate/20231110174637_create_bars.rb

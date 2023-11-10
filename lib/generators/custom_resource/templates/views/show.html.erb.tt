@@ -2,42 +2,36 @@
   @breadcrumbs = [
     {
       title: '<%= r_pluralize(r_capitalize(resource_name)) %>',
-      path: <%= plural_name %>_path
+      path: <%= _class_name_ug.pluralize %>_path
     },
     {
-      title: @<%= class_name.downcase %>.label,
-      path: <%= class_name.downcase %>_path(@<%= class_name.downcase %>),
+      title: @<%= _class_name_dd %>.label,
+      path: <%= _class_name_ug %>_path(@<%= _class_name_dd %>),
     },
   ]
 %>
 
-<div class="card card-primary">
-  <div class="card-header">
-    <h3 class="card-title m-0"><%= r_capitalize(resource_name) %></h3>
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-    </div>
-  </div>
-
-  <div class="card-body">
-    <div class="form-group">
+<h6 class="top-card-title"><%= r_capitalize(resource_name) %></h6>
+<div class="card card-primary card-outline">
+  <div class="card-body form-card">
+    <div class="form-field">
       <label><%= 'Наименование'.force_encoding('UTF-8') %></label>
-        <div><%%= @<%= class_name.downcase %>.label %></div>
+        <div><%%= @<%= _class_name_dd %>.label %></div>
     </div>
   </div>
 
   <div class="card-footer">
-    <%% if policy(@<%= class_name.downcase %>).update? %>
-      <%%= draw_edit_button(path: edit_<%= class_name.downcase %>_path(@<%= class_name.downcase %>)) %>
+    <%% if policy(@<%= _class_name_dd %>).update? %>
+      <%%= draw_edit_button(path: edit_<%= _class_name_ug %>_path(@<%= _class_name_dd %>)) %>
     <%% end %>
 
-    <%%= draw_back_button(path: <%= plural_name %>_path) %>
+    <%%= draw_back_button(path: <%= _class_name_ug.pluralize %>_path) %>
 
-    <%% if policy(@<%= class_name.downcase %>).restore? %>
-      <%%= link_to(icon('fas', 'trash-restore', '<%= 'Восстановить'.force_encoding('UTF-8') %>'), restore_<%= class_name.downcase %>_path(@<%= class_name.downcase %>), method: :post, class: 'btn btn-warning float-right') %>
+    <%% if policy(@<%= _class_name_dd %>).restore? %>
+      <%%= link_to(icon('fas', 'trash-restore', '<%= 'Восстановить'.force_encoding('UTF-8') %>'), restore_<%= _class_name_ug %>_path(@<%= _class_name_dd %>), method: :post, class: 'btn btn-warning float-right') %>
     <%% end %>
-    <%% if policy(@<%= class_name.downcase %>).destroy? %>
-      <%%= draw_delete_button(path: @<%= class_name.downcase %>) %>
+    <%% if policy(@<%= _class_name_dd %>).destroy? %>
+      <%%= draw_delete_button(path: @<%= _class_name_dd %>) %>
     <%% end %>
   </div>
 </div>

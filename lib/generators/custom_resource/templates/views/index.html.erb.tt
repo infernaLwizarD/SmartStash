@@ -16,19 +16,18 @@
           <div class="col col-md-11">
             <div class="row align-items-center display-flex">
               <div class="m-1">
-                <%%== pagy_bootstrap_nav(@pagy) %>
-              </div>
-              <%%= render 'web/shared/search_form', q: @q %>
-              <div class="m-1">
                 <%% if policy(<%= class_name %>).create? %>
-                  <div><%%= draw_new_button(path: new_<%= class_name.downcase %>_path(), button: true) %></div>
+                  <div><%%= draw_new_button(path: new_<%= _class_name_ug %>_path(), button: true) %></div>
                 <%% end %>
               </div>
+              <%%= render 'web/shared/search_form', q: @q %>
             </div>
           </div>
           <div class="col col-md-1">
             <div class="card-tools float-right">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <div class="m-1">
+                <%%== pagy_bootstrap_nav_sm(@pagy) %>
+              </div>
             </div>
           </div>
         </div>
@@ -43,10 +42,10 @@
           </tr>
           </thead>
           <tbody>
-          <%% @<%= plural_name %>.each do |<%= class_name.downcase %>| %>
+          <%% @<%= plural_name %>.each do |<%= _class_name_dd %>| %>
             <tr>
-              <td><%%= link_to <%= class_name.downcase %>.id, <%= class_name.downcase %> %></td>
-              <td><%%= link_to <%= class_name.downcase %>.label, <%= class_name.downcase %> %></td>
+              <td><%%= link_to <%= _class_name_dd %>.id, <%= _class_name_dd %> %></td>
+              <td><%%= link_to <%= _class_name_dd %>.label, <%= _class_name_dd %> %></td>
             </tr>
           <%% end %>
           </tbody>
