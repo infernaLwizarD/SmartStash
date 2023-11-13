@@ -76,6 +76,9 @@ h1, h2, h3, h4, h5, h6,
 .w-1000 {
   width: 1000px;
 }
-.rh {
+.resize-h {
   resize: horizontal;
+}
+.resize-b {
+  resize: both;
 }

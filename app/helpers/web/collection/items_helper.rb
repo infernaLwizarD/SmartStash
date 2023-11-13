@@ -2,10 +2,10 @@ module Web::Collection::ItemsHelper
   def field_by_type(values_form)
     case values_form.object.field.field_type
     when 'text'
-      values_form.text_field(:value, class: 'form-control form-control-sm')
+      values_form.text_area(:value, rows: 1, class: 'form-control form-control-sm w-500 mw-100 resize-h')
     when 'textarea'
       rows = values_form.object.value&.split(/[\r\n]+/)&.compact&.size
-      values_form.text_area(:value, rows:, class: 'form-control form-control-sm')
+      values_form.text_area(:value, rows:, class: 'form-control form-control-sm w-600 mw-100 resize-b')
     when 'select'
       values_form.select(:value, values_form.object.field.field_values,
                          { include_blank: '[Выберите]' },

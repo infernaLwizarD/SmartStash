@@ -5,11 +5,11 @@
       <%= render "web/shared/error_messages", resource: @user %>
       <div class="form-field">
         <%= form.label :username, "Имя пользователя" %>
-        <%= form.text_area :username, rows: 1, class: 'form-control form-control-sm w-500 mw-100 rh' %>
+        <%= form.text_area :username, rows: 1, class: 'form-control form-control-sm w-500 mw-100 resize-h' %>
       </div>
       <div class="form-field">
         <%= form.label :email, "Email" %>
-        <%= form.text_area :email, rows: 1, class: 'form-control form-control-sm w-500 mw-100 rh' %>
+        <%= form.text_area :email, rows: 1, class: 'form-control form-control-sm w-500 mw-100 resize-h' %>
       </div>
       <div class="form-field">
         <%= form.label :role, "Роль" %>
