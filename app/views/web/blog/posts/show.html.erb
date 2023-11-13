@@ -1,0 +1,45 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Записи',
+      path: blog_posts_path
+    },
+    {
+      title: @post.label,
+      path: blog_post_path(@post),
+    },
+  ]
+%>
+
+<h6 class="top-card-title">Запись</h6>
+<div class="card card-primary card-outline">
+  <div class="card-body form-card">
+    <div class="form-field">
+      <label>Наименование</label>
+      <div><%= @post.label %></div>
+    </div>
+    <div class="form-field">
+      <label>Описание</label>
+      <div class="line-break"><%= @post.description %></div>
+    </div>
+    <div class="form-field">
+      <label>Текст</label>
+      <div class="line-break"><%= @post.message %></div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <% if policy(@post).update? %>
+      <%= draw_edit_button(path: edit_blog_post_path(@post)) %>
+    <% end %>
+
+    <%= draw_back_button(path: blog_posts_path) %>
+
+    <% if policy(@post).restore? %>
+      <%= link_to(icon('fas', 'trash-restore', 'Восстановить'), restore_blog_post_path(@post), method: :post, class: 'btn btn-warning float-right') %>
+    <% end %>
+    <% if policy(@post).destroy? %>
+      <%= draw_delete_button(path: @post) %>
+    <% end %>
+  </div>
+</div>

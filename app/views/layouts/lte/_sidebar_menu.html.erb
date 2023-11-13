@@ -13,6 +13,12 @@
         <p>Коллекции</p>
       </a>
     </li>
+    <li class="nav-item">
+      <a href='<%= blog_posts_path %>' class="nav-link<%= current_page?(blog_posts_path) ? ' active' : '' %>">
+        <%= icon('nav-icon fas', 'pencil-alt') %>
+        <p>Блог</p>
+      </a>
+    </li>
   </ul>
 </nav>
 <!-- /.sidebar-menu -->

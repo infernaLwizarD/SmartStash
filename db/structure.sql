@@ -150,6 +150,41 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.blog_posts (
+    id bigint NOT NULL,
+    label character varying,
+    description text,
+    message text,
+    creator_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    discarded_at timestamp without time zone
+);
+
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.blog_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: blog_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
+
+
+--
 -- Name: collection_fields; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -358,6 +393,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: blog_posts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.blog_posts ALTER COLUMN id SET DEFAULT nextval('public.blog_posts_id_seq'::regclass);
+
+
+--
 -- Name: collection_fields id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -415,6 +457,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: blog_posts blog_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.blog_posts
+    ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -483,6 +533,20 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 --
 
 CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_blog_posts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_blog_posts_on_creator_id ON public.blog_posts USING btree (creator_id);
+
+
+--
+-- Name: index_blog_posts_on_discarded_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_blog_posts_on_discarded_at ON public.blog_posts USING btree (discarded_at);
 
 
 --
@@ -629,6 +693,14 @@ ALTER TABLE ONLY public.collection_values
 
 
 --
+-- Name: blog_posts fk_rails_45731ba462; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.blog_posts
+    ADD CONSTRAINT fk_rails_45731ba462 FOREIGN KEY (creator_id) REFERENCES public.users(id);
+
+
+--
 -- Name: collection_values fk_rails_77824f934d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -686,6 +758,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230823211123'),
 ('2023091311514255'),
 ('20230924201356'),
-('20231010111248');
+('20231010111248'),
+('20231112084326');
 
 

@@ -1,0 +1,14 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Записи',
+      path: blog_posts_path
+    },
+    {
+      title: @post.label,
+      path: blog_post_path(@post),
+    },
+  ]
+%>
+
+<%= render 'form', back_path: blog_post_path(@post) %>

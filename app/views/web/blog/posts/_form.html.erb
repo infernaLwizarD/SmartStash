@@ -1,0 +1,25 @@
+<%= form_with(model: @post) do |form| %>
+  <h6 class="top-card-title">Запись</h6>
+  <div class="card card-primary card-outline">
+    <div class="card-body form-card">
+      <%= render 'web/shared/error_messages', resource: @post %>
+      <div class="form-field">
+        <%= form.label :label, 'Заголовок' %>
+        <%= form.text_area :label, rows: 1, class: 'form-control form-control-sm w-600 mw-100 resize-h' %>
+      </div>
+      <div class="form-field">
+        <%= form.label :description, 'Описание' %>
+        <%= form.text_area :description, rows: 4, class: 'form-control form-control-sm w-600 mw-100 resize-b' %>
+      </div>
+      <div class="form-field">
+        <%= form.label :message, 'Текст' %>
+        <%= form.text_area :message, rows: 10, class: 'form-control form-control-sm mw-100 resize-b' %>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <%= draw_back_button(path: back_path) %>
+      <%= draw_save_button %>
+    </div>
+  </div>
+<% end %>

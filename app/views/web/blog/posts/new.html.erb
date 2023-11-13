@@ -1,0 +1,13 @@
+<%
+  @breadcrumbs = [
+    {
+      title: 'Записи',
+      path: blog_posts_path
+    },
+    {
+      title: 'Добавить запись'
+    },
+  ]
+%>
+
+<%= render 'form', back_path: blog_posts_path %>
