@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'edit_item' do
-  let_it_be(:edited_item) { create(:collection_item, creator_id: user.id) }
+  let_it_be(:edited_item) { create(:collection_item, creator: user) }
 
   it 'успешно редактирует' do
     within('#items-table') do

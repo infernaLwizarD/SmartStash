@@ -4,7 +4,7 @@ FactoryBot.define do
     association :creator
   end
 
-  trait :discarded do
+  trait :discarded_collection_item do
     discarded_at { 1.hour.ago }
   end
 end

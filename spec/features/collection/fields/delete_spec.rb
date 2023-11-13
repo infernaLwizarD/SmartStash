@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.shared_examples 'delete_collection_field' do
   let_it_be(:item) { create(:collection_item, creator_id: user.id) }
   let_it_be(:deleting_collection_field) { create(:collection_field, creator: user, item:) }
-  let_it_be(:deleted_collection_field) { create(:collection_field, :discarded, creator: user, item:) }
+  let_it_be(:deleted_collection_field) { create(:collection_field, :discarded_collection_field, creator: user, item:) }
 
   it 'удаляет поле коллекции' do
     within('#items-table') do

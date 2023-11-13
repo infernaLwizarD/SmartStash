@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.shared_examples 'delete_item' do
-  let_it_be(:deleting_item) { create(:collection_item, creator_id: user.id) }
-  let_it_be(:deleted_item) { create(:collection_item, :discarded, creator_id: user.id) }
+  let_it_be(:deleting_item) { create(:collection_item, creator: user) }
+  let_it_be(:deleted_item) { create(:collection_item, :discarded_collection_item, creator: user) }
 
   it 'удаляет коллекцию' do
     within('#items-table') do
